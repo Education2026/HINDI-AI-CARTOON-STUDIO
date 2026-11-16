@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hindi AI Cartoon Studio</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f3ff;
+  color: #172044;
+}
+header {
+  background: linear-gradient(120deg,#172b83,#7436d8);
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+}
+header h1 {
+  margin: 5px;
+  font-size: 27px;
+}
+header p { margin-bottom: 0; }
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+nav {
+  width: 230px;
+  background: #171b43;
+  padding: 15px;
+}
+nav button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 7px 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  text-align: left;
+  font-size: 15px;
+  cursor: pointer;
+}
+nav button:hover {
+  background: #3157ed;
+}
+main {
+  flex: 1;
+  padding: 22px;
+}
+.card {
+  background: white;
+  padding: 22px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px #00000010;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+.stat {
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(120deg,#087cf0,#343eea);
+}
+.stat:nth-child(2) {
+  background: linear-gradient(120deg,#00ae70,#00d69b);
+}
+.stat:nth-child(3) {
+  background: linear-gradient(120deg,#9029db,#c02bdc);
+}
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border: 1px solid #ccd0df;
+  border-radius: 8px;
+  font-size: 16px;
+}
+textarea { min-height: 100px; }
+.action {
+  background: #5836dc;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.result {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  background: #f4f5ff;
+  padding: 15px;
+  border-radius: 8px;
+}
+.page { display: none; }
+.page.active { display: block; }
+
+@media(max-width:650px) {
+  .container { display:block; }
+  nav {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  nav button {
+    min-width: 125px;
+    text-align: center;
+    font-size: 13px;
+  }
+  main { padding: 12px; }
+  .stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎬 HINDI AI CARTOON STUDIO</h1>
+  <p>Create • Animate • Upload</p>
+</header>
+
+<div class="container">
+
+<nav>
+  <button onclick="showPage('dashboard')">🏠 Dashboard</button>
+  <button onclick="showPage('story')">📖 Story Generator</button>
+  <button onclick="showPage('character')">👦 Character Maker</button>
+  <button onclick="showPage('script')">💬 Script & Dialogue</button>
+  <button onclick="showPage('video')">🎬 Video Generator</button>
+  <button onclick="showPage('voice')">🎤 AI Voice</button>
+  <button onclick="showPage('thumbnail')">🖼 Thumbnail Maker</button>
+  <button onclick="showPage('projects')">📁 My Projects</button>
+</nav>
+
+<main>
+
+<section id="dashboard" class="page active">
+  <div class="card">
+    <h2>🎯 Welcome Creator!</h2>
+    <p>Let's create amazing Hindi cartoon videos.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <h2>2</h2>Videos / Day
+    </div>
+    <div class="stat">
+      <h2>60</h2>Videos / Month
+    </div>
+    <div class="stat">
+      <h2>0</h2>Projects
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Quick Start</h2>
+    <p>1. Generate Story</p>
+    <p>2. Create Characters</p>
+    <p>3. Write Script</p>
+    <p>4. Generate Video</p>
+    <p>5. Add Voice & Music</p>
+    <p>6. Upload to YouTube</p>
+    <button class="action" onclick="showPage('story')">
+      Start New Project →
+    </button>
+  </div>
+</section>
+
+<section id="story" class="page">
+  <div class="card">
+    <h2>📖 Hindi Story Generator</h2>
+
+    <label>Story Topic</label>
+    <input id="topic" placeholder="दो दोस्तों की कहानी">
+
+    <label>Story Duration</label>
+    <select id="duration">
+      <option>5 Minutes</option>
+      <option>10 Minutes</option>
+      <option>15 Minutes</option>
+    </select>
+
+    <button class="action" onclick="generateStory()">
+      Generate Story
+    </button>
+
+    <h3>Story Result</h3>
+    <div id="storyResult" class="result">
+      आपकी कहानी यहाँ दिखाई देगी।
+    </div>
+  </div>
+</section>
+
+<section id="character" class="page">
+  <div class="card">
+    <h2>👦 Character Maker</h2>
+    <input placeholder="Character Name">
+    <select>
+      <option>Boy</option>
+      <option>Girl</option>
+      <option>Animal</option>
+    </select>
+    <textarea placeholder="Describe your 3D cartoon character"></textarea>
+    <button class="action" onclick="alert('Character AI API जोड़ना बाकी है')">
+      Create Character
+    </button>
+  </div>
+</section>
+
+<section id="script" class="page">
+  <div class="card">
+    <h2>💬 Script & Dialogue</h2>
+    <textarea id="scriptInput" placeholder="अपनी कहानी यहाँ लिखें"></textarea>
+    <button class="action" onclick="alert('Script AI API जोड़ना बाकी है')">
+      Generate Script
+    </button>
+  </div>
+</section>
+
+<section id="video" class="page">
+  <div class="card">
+    <h2>🎬 Video Generator</h2>
+    <p>3D Cartoon Animation Video Generator</p>
+    <button class="action" onclick="alert('Video Generation API जोड़ना बाकी है')">
+      Generate Video
+    </button>
+  </div>
+</section>
+
+<section id="voice" class="page">
+  <div class="card">
+    <h2>🎤 Hindi AI Voice</h2>
+    <select>
+      <option>Hindi Male Voice</option>
+      <option>Hindi Female Voice</option>
+    </select>
+    <textarea placeholder="अपना Dialogue लिखें"></textarea>
+    <button class="action" onclick="alert('AI Voice API जोड़ना बाकी है')">
+      Generate Voice
+    </button>
+  </div>
+</section>
+
+<section id="thumbnail" class="page">
+  <div class="card">
+    <h2>🖼 Thumbnail Maker</h2>
+    <input placeholder="Video Title">
+    <button class="action" onclick="alert('Thumbnail AI जोड़ना बाकी है')">
+      Create Thumbnail
+    </button>
+  </div>
+</section>
+
+<section id="projects" class="page">
+  <div class="card">
+    <h2>📁 My Projects</h2>
+    <p>आपके Projects यहाँ दिखाई देंगे।</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+function generateStory() {
+  let topic = document.getElementById('topic').value;
+  let duration = document.getElementById('duration').value;
+
+  if (!topic.trim()) {
+    alert('कृपया कहानी का विषय लिखें।');
+    return;
+  }
+
+  let story =
+`शीर्षक: ${topic}
+
+समय: ${duration}
+
+एक समय की बात है। ${topic} से जुड़ी एक सुंदर कहानी शुरू होती है।
+
+इस कहानी में दोस्ती, मेहनत और ईमानदारी का संदेश मिलता है।
+
+एक दिन सभी पात्रों के सामने एक बड़ी समस्या आती है।
+वे मिलकर उसका समाधान खोजते हैं।
+
+अंत में सभी को एक महत्वपूर्ण सीख मिलती है।
+
+शिक्षा: हमें हमेशा सच्चाई और मेहनत का साथ देना चाहिए।`;
+
+  document.getElementById('storyResult').innerText = story;
+}
+</script>
+
+</body>
+</html>
