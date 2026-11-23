@@ -284,14 +284,49 @@ function showPage(id) {
   document.getElementById(id).classList.add('active');
 }
 
-function generateStory() {
+function generateStory()
+  
+async function generateStory() {
   let topic = document.getElementById('topic').value;
   let duration = document.getElementById('duration').value;
+  let result = document.getElementById('storyResult');
 
   if (!topic.trim()) {
     alert('कृपया कहानी का विषय लिखें।');
     return;
   }
+
+  result.innerText = 'कृपया प्रतीक्षा करें... AI आपकी कहानी लिख रहा है।';
+
+  try {
+    const response = await fetch(
+      'https://hindi-ai-cartoon-api.rohanbag8877.workers.dev/generate',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: `हिंदी में ${duration} की एक पूरी, रोचक और मौलिक कार्टून कहानी लिखें।
+          कहानी का विषय: ${topic}
+          इसमें पात्र, संवाद, दृश्य और अंत में शिक्षा शामिल करें।`
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || 'AI से कहानी नहीं मिली।');
+    }
+
+    result.innerText = data.text;
+
+  } catch (error) {
+    result.innerText = 'Error: ' + error.message;
+  }
+}
+
 
   let story =
 `शीर्षक: ${topic}
