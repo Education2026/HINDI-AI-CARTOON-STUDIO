@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -281,11 +280,10 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active');
   });
+
   document.getElementById(id).classList.add('active');
 }
 
-function generateStory()
-  
 async function generateStory() {
   let topic = document.getElementById('topic').value;
   let duration = document.getElementById('duration').value;
@@ -326,8 +324,6 @@ async function generateStory() {
     result.innerText = 'Error: ' + error.message;
   }
 }
-
 </script>
-
 </body>
 </html>
